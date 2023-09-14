@@ -15,8 +15,8 @@ export class TypeQuestionEntity {
 
       // Questions
   @OneToMany(() => QuestionEntity,
-    (question) => question.id_type_question, 
+    (question) => question.type_question, 
     { cascade: true, eager: true, }
   )
-  id_question: QuestionEntity;
+  id_question?: QuestionEntity[];
 }

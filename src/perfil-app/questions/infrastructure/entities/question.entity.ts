@@ -17,11 +17,11 @@ export class QuestionEntity {
     (typeQuestion) => typeQuestion.type_question, 
     { onDelete: 'CASCADE',
   })
-  id_type_question: TypeQuestionEntity;
+  type_question: TypeQuestionEntity;
 
   @ManyToOne(() => VisibilityQuestionEntity,
   (visibilityQuestion) => visibilityQuestion.type_visibility, 
   { onDelete: 'CASCADE',
   })
-  id_visibility: VisibilityQuestionEntity;
+  type_visibility: VisibilityQuestionEntity;
 }

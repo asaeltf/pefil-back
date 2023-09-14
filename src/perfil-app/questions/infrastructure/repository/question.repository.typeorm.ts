@@ -34,8 +34,8 @@ export class QuestionRepositoryTypeORM implements QuestionRepository {
   async findAll(){
     const questions = await this.questionRepository.find({
         relations: {
-            id_type_question:true,
-            id_visibility: true
+            type_question:true,
+            type_visibility: true
         }
     });
 
@@ -53,11 +53,11 @@ export class QuestionRepositoryTypeORM implements QuestionRepository {
         const visibilityQuestion = await this.visibilityQuestionRepository.findOne({where: {id: type_visibility}})
         console.log(typeQuestion)
         const newQuestion = this.questionRepository.create({
-            ...questionDetails,
-            id_type_question: typeQuestion,
-            id_visibility: visibilityQuestion,
+            text_question: questionDetails.text_question,
+            type_question: typeQuestion,
+            type_visibility: visibilityQuestion,
         });
-        await this.questionRepository.save(createQuestionDto)
+        await this.questionRepository.save(newQuestion)
         return newQuestion;
         
       } catch (error) {

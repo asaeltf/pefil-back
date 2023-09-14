@@ -13,9 +13,9 @@ export class VisibilityQuestionEntity {
   type_visibility: string;
 
   // Questions
-  @OneToMany(() => QuestionEntity, (question) => question.id_visibility, {
+  @OneToMany(() => QuestionEntity, (question) => question.type_visibility, {
     cascade: true,
     eager: true,
   })
-  id_question: QuestionEntity;
+  id_question?: QuestionEntity[];
 }
