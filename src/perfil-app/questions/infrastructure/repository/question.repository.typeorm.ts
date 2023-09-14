@@ -32,12 +32,12 @@ export class QuestionRepositoryTypeORM implements QuestionRepository {
 
 
   async findAll(){
-    const questions = await this.questionRepository.find({
-        relations: {
-            type_question:true,
-            type_visibility: true
-        }
-    });
+    const questions = await this.questionRepository
+    .createQueryBuilder('questions')
+    .leftJoinAndSelect('questions.type_question','type_question')
+    .leftJoinAndSelect('questions.type_visibility','type_visibility')
+    .getMany()
+    ;
 
     return questions;
   }
