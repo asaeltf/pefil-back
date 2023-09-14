@@ -1,13 +1,21 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { QuestionEntity } from './question.entity';
 
+@Entity({ name: 'visibility_question' })
+export class VisibilityQuestionEntity {
+  
+  @PrimaryGeneratedColumn()
+  id: number;
 
-@Entity({name:'visibility_question'})
-export class VisibilityQuestion {
+  @Column('text', {
+    unique: true,
+  })
+  type_visibility: string;
 
-    @PrimaryGeneratedColumn()
-    id:number
-
-    @Column('text')
-    type_question:string
-
+  // Questions
+  @OneToMany(() => QuestionEntity, (question) => question.id_visibility, {
+    cascade: true,
+    eager: true,
+  })
+  id_question: QuestionEntity;
 }

@@ -1,18 +1,27 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { TypeQuestion } from './type-question.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { TypeQuestionEntity } from './type-question.entity';
+import { VisibilityQuestionEntity } from './visibility-question.entity';
 
 @Entity({ name: 'questions' })
-export class Question {
+export class QuestionEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('text')
+  @Column('text', {
+    unique: true,
+  })
   text_question: string;
 
-  // Questions
-  @OneToMany(() => TypeQuestion, (typeQuestion) => typeQuestion.id, {
-    cascade: true,
-    eager: true,
+  @ManyToOne(
+    () => TypeQuestionEntity, 
+    (typeQuestion) => typeQuestion.type_question, 
+    { onDelete: 'CASCADE',
   })
-  id_visibility: number;
+  id_type_question: TypeQuestionEntity;
+
+  @ManyToOne(() => VisibilityQuestionEntity,
+  (visibilityQuestion) => visibilityQuestion.type_visibility, 
+  { onDelete: 'CASCADE',
+  })
+  id_visibility: VisibilityQuestionEntity;
 }
